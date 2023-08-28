@@ -28,6 +28,7 @@ module Swagger::Data
         path_obj = Swagger::Data::Path.parse(path_obj)
       end
 
+      path_obj.path = path
       @paths[path] = path_obj
     end
 

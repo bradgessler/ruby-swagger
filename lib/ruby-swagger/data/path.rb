@@ -6,6 +6,7 @@ require 'ruby-swagger/data/reference'
 module Swagger::Data
   class Path < Swagger::Object # https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md#path-item-object
     attr_swagger :get, :put, :post, :delete, :options, :head, :patch, :parameters # and $ref
+    attr_accessor :path
     @ref = nil
 
     def self.parse(path)
