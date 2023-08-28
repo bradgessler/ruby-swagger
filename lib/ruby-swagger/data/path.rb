@@ -24,61 +24,31 @@ module Swagger::Data
     alias :operations :all_methods
 
     def get=(new_get)
-      return nil unless new_get
-      unless new_get.is_a?(Swagger::Data::Operation)
-        new_get = Swagger::Data::Operation.parse(new_get)
-      end
-
-      @get = new_get
+      @get = build_operation "GET", new_get
     end
 
     def put=(new_put)
-      return nil unless new_put
-      unless new_put.is_a?(Swagger::Data::Operation)
-        new_put = Swagger::Data::Operation.parse(new_put)
-      end
-      @put = new_put
+      @put = build_operation "PUT", new_put
     end
 
     def post=(new_post)
-      return nil unless new_post
-      unless new_post.is_a?(Swagger::Data::Operation)
-        new_post = Swagger::Data::Operation.parse(new_post)
-      end
-      @post = new_post
+      @post = build_operation "POST", new_post
     end
 
     def delete=(new_delete)
-      return nil unless new_delete
-      unless new_delete.is_a?(Swagger::Data::Operation)
-        new_delete = Swagger::Data::Operation.parse(new_delete)
-      end
-      @delete = new_delete
+      @delete = build_operation "DELETE", new_delete
     end
 
     def options=(new_options)
-      return nil unless new_options
-      unless new_options.is_a?(Swagger::Data::Operation)
-        new_options = Swagger::Data::Operation.parse(new_options)
-      end
-      @options = new_options
+      @options = build_operation "OPTIONS", new_options
     end
 
     def head=(new_head)
-      return nil unless new_head
-      unless new_head.is_a?(Swagger::Data::Operation)
-        new_head = Swagger::Data::Operation.parse(new_head)
-      end
-
-      @head = new_head
+      @head = build_operation "HEAD", new_head
     end
 
     def patch=(new_patch)
-      return nil unless new_patch
-      unless new_patch.is_a?(Swagger::Data::Operation)
-        new_patch = Swagger::Data::Operation.parse(new_patch)
-      end
-      @patch = new_patch
+      @patch = build_operation "PATCH", new_patch
     end
 
     def parameters=(new_parameters)
@@ -113,6 +83,17 @@ module Swagger::Data
       res = super
       res['$ref'] = @ref if @ref
       res
+    end
+
+    protected
+
+    def build_operation(request_method, operation)
+      return nil unless operation
+      unless operation.is_a?(Swagger::Data::Operation)
+        operation = Swagger::Data::Operation.parse(operation)
+        operation.request_method = request_method.freeze
+      end
+      operation
     end
   end
 end

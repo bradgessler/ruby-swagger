@@ -17,9 +17,7 @@ module Swagger::Data
     def self.parse(operation)
       return unless operation
 
-      Swagger::Data::Operation.new.bulk_set(operation).tap do |operation|
-        operation.request_method = operation.to_s.upcase
-      end
+      Swagger::Data::Operation.new.bulk_set(operation)
     end
 
     def externalDocs=(newDoc)
