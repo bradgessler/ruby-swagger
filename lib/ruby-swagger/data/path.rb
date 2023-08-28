@@ -20,6 +20,8 @@ module Swagger::Data
     def all_methods
       [@get, @put, @post, @delete, @options, @head, @patch].compact
     end
+    alias :request_methods :all_methods
+    alias :operations :all_methods
 
     def get=(new_get)
       return nil unless new_get
