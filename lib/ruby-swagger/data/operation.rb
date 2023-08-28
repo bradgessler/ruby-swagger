@@ -11,6 +11,9 @@ module Swagger::Data
 
     attr_accessor :request_method
 
+    alias :name :operationId
+    alias :id :operationId
+
     def self.parse(operation)
       return unless operation
 
