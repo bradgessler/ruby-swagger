@@ -4,6 +4,12 @@ require 'ruby-swagger/data/response'
 
 module Swagger::Data
   class Responses < Swagger::Object # https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md#responsesObject
+    include Enumerable
+
+    def each(&)
+      @responses.values.each(&)
+    end
+
     def initialize
       @responses = {}
     end
