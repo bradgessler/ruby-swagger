@@ -3,6 +3,12 @@ require 'ruby-swagger/data/path'
 
 module Swagger::Data
   class Paths < Swagger::Object # https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md#pathsObject
+    include Enumerable
+
+    def each(&)
+      all_paths.each(&)
+    end
+
     def initialize
       @paths = {}
     end
