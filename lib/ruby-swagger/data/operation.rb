@@ -9,7 +9,7 @@ module Swagger::Data
                  :consumes, :produces, :parameters, :responses,
                  :schemes, :deprecated, :security
 
-    attr_reader :request_method
+    attr_accessor :request_method
 
     def self.parse(operation)
       return unless operation
