@@ -116,6 +116,11 @@ module Swagger::Data
       @definitions = new_definitions
     end
 
+    # Finds a definition
+    def definition(name)
+      definitions[name]
+    end
+
     def parameters=(new_parameters)
       return nil unless new_parameters
 
