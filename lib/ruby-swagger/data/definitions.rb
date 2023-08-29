@@ -3,6 +3,12 @@ require 'ruby-swagger/data/schema'
 
 module Swagger::Data
   class Definitions < Swagger::Object # https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md#definitionsObject
+    include Enumerable
+
+    def each(&)
+      @definitions.values.each(&)
+    end
+
     def initialize
       @definitions = {}
     end
@@ -31,6 +37,12 @@ module Swagger::Data
     end
 
     def [](key)
+      # If we pass and object in here that responses to ref, like Schema, call
+      # the ref method and continue on our merry way.
+      return self[key.ref] if key.respond_to? :ref
+      # Removes the leading `/#definitions/` from the string
+      # since this library stores everything after that as the key.
+      key = key.sub(/\A#\/definitions\//, "")
       @definitions[key]
     end
 
