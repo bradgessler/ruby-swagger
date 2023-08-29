@@ -32,6 +32,7 @@ module Swagger::Data
       if !response.is_a?(Swagger::Data::Reference) && !response.is_a?(Swagger::Data::Response)
         # it's a reference object or it's a parameter object
         response = response['$ref'] ? Swagger::Data::Reference.parse(response) : Swagger::Data::Response.parse(response)
+        response.code = response_code
       end
 
       @responses[response_code] = response
