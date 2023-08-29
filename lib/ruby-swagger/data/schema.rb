@@ -14,6 +14,7 @@ module Swagger::Data
                  :properties, :additionalProperties
 
     attr_reader :ref
+    attr_accessor :name
 
     def self.parse(schema)
       return nil if schema.nil?
