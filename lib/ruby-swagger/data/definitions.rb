@@ -5,7 +5,7 @@ module Swagger::Data
   class Definitions < Swagger::Object # https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md#definitionsObject
     include Enumerable
 
-    attr_reader :name
+    attr_accessor :name
 
     def each(&)
       @definitions.values.each(&)

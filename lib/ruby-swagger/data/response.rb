@@ -7,7 +7,7 @@ module Swagger::Data
   class Response < Swagger::Object # https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md#responseObject
     attr_swagger :description, :schema, :headers, :examples
 
-    attr_reader :code
+    attr_accessor :code
     alias :status :code
 
     def self.parse(response)
