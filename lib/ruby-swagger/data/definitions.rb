@@ -37,13 +37,23 @@ module Swagger::Data
     end
 
     def [](key)
+      # Schema's always have a ref, so let's just unpack that if an object
+      # is given to us that responds to schema.
+      return self[key.schema] if key.respond_to? :schema
       # If we pass and object in here that responses to ref, like Schema, call
       # the ref method and continue on our merry way.
       return self[key.ref] if key.respond_to? :ref
       # Removes the leading `/#definitions/` from the string
       # since this library stores everything after that as the key.
-      key = key.sub(/\A#\/definitions\//, "")
-      @definitions[key]
+      case key
+      when String
+        key = key.sub(/\A#\/definitions\//, "")
+        @definitions[key]
+      when NilClass
+        nil
+      else
+        raise "Expecting #{key.inspect} to be a string"
+      end
     end
 
     def as_swagger
