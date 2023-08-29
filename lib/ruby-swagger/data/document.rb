@@ -96,6 +96,10 @@ module Swagger::Data
       @paths = new_paths
     end
 
+    def path(path)
+      paths[path]
+    end
+
     def operations
       Enumerator.new do |y|
         paths.each do |path|
